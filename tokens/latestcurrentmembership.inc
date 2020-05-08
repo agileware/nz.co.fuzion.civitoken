@@ -4,6 +4,7 @@ function latestcurrentmembership_civitoken_declare($token) {
   return [
     $token . '.type' => 'Latest Current Membership Type',
     $token . '.end_date' => 'Latest Current Membership End Date',
+    $token . '.end_date_mm_yy' => 'Latest Current Membership End Date in MM/YY',
     $token . '.end_date_raw' => 'Latest Current Membership End Date (raw)',
     $token . '.start_date' => 'Latest Current Membership Start Date',
     $token . '.start_date_raw' => 'Latest Current Membership Start Date (raw)',
@@ -66,6 +67,7 @@ function latestcurrentmembership_get_tokens($cid, &$value, $onlyActive) {
   if (!CRM_Utils_Array::value('is_error', $membership)) {
     $value['latestcurrentmembership.' . $prefix . 'type'] = $membership['api.membership_type.getsingle']['name'];
     $value['latestcurrentmembership.' . $prefix . 'end_date'] = !empty($membership['end_date']) ? CRM_Utils_Date::customFormat($membership['end_date']) : '';
+    $value['latestcurrentmembership.' . $prefix . 'end_date_mm_yy'] = !empty($membership['end_date']) ? date('m/y', strtotime($membership['end_date'])) : '';
     $value['latestcurrentmembership.' . $prefix . 'end_date_raw'] = !empty($membership['end_date']) ? CRM_Utils_Date::customFormat($membership['end_date'], "%Y%m%d") : '';
     $value['latestcurrentmembership.' . $prefix . 'start_date'] = CRM_Utils_Date::customFormat($membership['start_date']);
     $value['latestcurrentmembership.' . $prefix . 'start_date_raw'] = CRM_Utils_Date::customFormat($membership['start_date'], "%Y%m%d");
